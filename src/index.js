@@ -16,12 +16,20 @@ function calculatePNL(position) {
     return (position.currentPrice - position.averagePurchasePrice) * position.shares;
 }
 ;
-function calculateWeight(position) {
-    return marketVal(position) / totalVal;
+function calculateWeight(position, PortfolioVal) {
+    return marketVal(position) / PortfolioVal;
 }
 ;
-const PNL = portfolio.map(calculateWeight);
-const Weights = portfolio.map(calculateWeight);
-console.log(Weights);
+const PNL = portfolio.map(calculatePNL);
+const weights = portfolio.map((position) => calculateWeight(position, totalVal));
+console.log(weights);
 console.log(PNL);
+;
+function positionAnalysis(position) {
+    return { ticker: position.ticker, marketValue: marketVal(position),
+        pnl: calculatePNL(position), weight: calculateWeight(position, totalVal) };
+}
+;
+let positionReport = portfolio.map(positionAnalysis);
+console.log(positionReport);
 //# sourceMappingURL=index.js.map

@@ -33,4 +33,17 @@ const weights = portfolio.map((position) => calculateWeight(position, totalVal))
 console.log(weights)
 console.log(PNL)
 
+interface PositionAnalysis{
+    ticker: string;
+    marketValue: number;
+    pnl: number;
+    weight: number ;
+};
 
+function positionAnalysis(position: Position): PositionAnalysis{
+    return {ticker: position.ticker, marketValue: marketVal(position), 
+        pnl: calculatePNL(position), weight: calculateWeight(position, totalVal)}
+};
+
+const positionReport = portfolio.map(positionAnalysis)
+console.table(positionReport)
