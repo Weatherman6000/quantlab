@@ -19,3 +19,18 @@ const totalVal = marketValue.reduce((sum , val) =>  sum + val, 0);
 console.log(marketValue) ;
 console.log(totalVal);
 
+function calculatePNL(position: Position): number { 
+    return (position.currentPrice - position.averagePurchasePrice) * position.shares
+};
+
+function calculateWeight(position: Position, PortfolioVal: number): number { 
+    return marketVal(position)/ PortfolioVal
+};
+
+const PNL = portfolio.map(calculatePNL)
+const weights = portfolio.map((position) => calculateWeight(position, totalVal))
+
+console.log(weights)
+console.log(PNL)
+
+
