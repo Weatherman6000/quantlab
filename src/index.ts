@@ -37,12 +37,14 @@ interface PositionAnalysis{
     ticker: string;
     marketValue: number;
     pnl: number;
-    weight: number ;
+    weight: number;
+    returnPercentage: number;
 };
 
 function positionAnalysis(position: Position): PositionAnalysis{
     return {ticker: position.ticker, marketValue: marketVal(position), 
-        pnl: calculatePNL(position), weight: calculateWeight(position, totalVal)}
+        pnl: calculatePNL(position), weight: calculateWeight(position, totalVal),
+        returnPercentage: calculateReturnPercentage(position)}
 };
 
 const positionReport = portfolio.map(positionAnalysis)
@@ -76,3 +78,10 @@ console.log("Initial Investment:", costBasis);
 //calculate total percentage return 
 const totalYield = (totalPNL / costBasis) * 100;
 console.log("Portfolio return:", `${totalYield.toFixed(2)}%`);
+
+//append individual stock yield 
+
+function calculateReturnPercentage(position: Position) { 
+    return (position.currentPrice - position.averagePurchasePrice) / position.averagePurchasePrice * 100
+}
+

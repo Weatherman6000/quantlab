@@ -27,7 +27,8 @@ console.log(PNL);
 ;
 function positionAnalysis(position) {
     return { ticker: position.ticker, marketValue: marketVal(position),
-        pnl: calculatePNL(position), weight: calculateWeight(position, totalVal) };
+        pnl: calculatePNL(position), weight: calculateWeight(position, totalVal),
+        yield: calculateIndividualYield(position) };
 }
 ;
 const positionReport = portfolio.map(positionAnalysis);
@@ -53,4 +54,8 @@ console.log("Initial Investment:", costBasis);
 //calculate total percentage return 
 const totalYield = (totalPNL / costBasis) * 100;
 console.log("Portfolio return:", `${totalYield.toFixed(2)}%`);
+//append individual stock yield 
+function calculateIndividualYield(position) {
+    return (position.currentPrice - position.averagePurchasePrice) / position.averagePurchasePrice * 100;
+}
 //# sourceMappingURL=index.js.map
