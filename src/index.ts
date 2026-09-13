@@ -85,3 +85,14 @@ function calculateReturnPercentage(position: Position) {
     return (position.currentPrice - position.averagePurchasePrice) / position.averagePurchasePrice * 100
 }
 
+//find best performing stock 
+
+const bestPerformer = positionReport.reduce((best, current) => {
+    if (current.returnPercentage > best.returnPercentage) { 
+        return current;
+    }
+    return best;
+});
+
+console.log("Best performer is:", bestPerformer.ticker);
+console.log("Return:", `${bestPerformer.returnPercentage.toFixed(2)}%`)

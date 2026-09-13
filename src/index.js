@@ -28,7 +28,7 @@ console.log(PNL);
 function positionAnalysis(position) {
     return { ticker: position.ticker, marketValue: marketVal(position),
         pnl: calculatePNL(position), weight: calculateWeight(position, totalVal),
-        yield: calculateIndividualYield(position) };
+        returnPercentage: calculateReturnPercentage(position) };
 }
 ;
 const positionReport = portfolio.map(positionAnalysis);
@@ -55,7 +55,16 @@ console.log("Initial Investment:", costBasis);
 const totalYield = (totalPNL / costBasis) * 100;
 console.log("Portfolio return:", `${totalYield.toFixed(2)}%`);
 //append individual stock yield 
-function calculateIndividualYield(position) {
+function calculateReturnPercentage(position) {
     return (position.currentPrice - position.averagePurchasePrice) / position.averagePurchasePrice * 100;
 }
+//find best performing stock 
+const bestPerformer = positionReport.reduce((best, current) => {
+    if (current.returnPercentage > best.returnPercentage) {
+        return current;
+    }
+    return best;
+});
+console.log("Best performer is:", bestPerformer.ticker);
+console.log("Return:", `${bestPerformer.returnPercentage.toFixed(2)}%`);
 //# sourceMappingURL=index.js.map
