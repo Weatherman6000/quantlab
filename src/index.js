@@ -30,6 +30,14 @@ function positionAnalysis(position) {
         pnl: calculatePNL(position), weight: calculateWeight(position, totalVal) };
 }
 ;
-let positionReport = portfolio.map(positionAnalysis);
-console.log(positionReport);
+const positionReport = portfolio.map(positionAnalysis);
+console.table(positionReport);
+const largestPosition = positionReport.reduce((largest, current) => {
+    if (current.marketValue > largest.marketValue) {
+        return current;
+    }
+    return largest;
+});
+console.log("Largest position:", largestPosition.ticker);
+console.log("Market value:", largestPosition.marketValue);
 //# sourceMappingURL=index.js.map

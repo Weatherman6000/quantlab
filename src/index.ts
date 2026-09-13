@@ -47,3 +47,13 @@ function positionAnalysis(position: Position): PositionAnalysis{
 
 const positionReport = portfolio.map(positionAnalysis)
 console.table(positionReport)
+
+const largestPosition = positionReport.reduce((largest, current) => {
+    if (current.marketValue > largest.marketValue) {
+        return current;
+    } 
+    return largest;
+});
+
+console.log("Largest position:", largestPosition.ticker);
+console.log("Market value:", largestPosition.marketValue);
