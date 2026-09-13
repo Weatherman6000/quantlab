@@ -57,3 +57,22 @@ const largestPosition = positionReport.reduce((largest, current) => {
 
 console.log("Largest position:", largestPosition.ticker);
 console.log("Market value:", largestPosition.marketValue);
+
+//total unrealized PNL
+const totalPNL = positionReport.reduce((sum, current) => {
+    return sum + current.pnl; 
+}, 0);
+
+console.log("Total unrealized PNL:", totalPNL);
+
+//calculate total initial portfolio investment 
+
+const costBasis = portfolio.reduce((sum, current) => {
+    return sum + current.shares * current.averagePurchasePrice;
+}, 0)
+
+console.log("Initial Investment:", costBasis);
+
+//calculate total percentage return 
+const totalYield = (totalPNL / costBasis) * 100;
+console.log("Portfolio return:", `${totalYield.toFixed(2)}%`);
